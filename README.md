@@ -18,3 +18,8 @@ PythonShell.run('systeminfo.py', null, function (err, result) {
 ```
 Result<br>
 ![image](https://user-images.githubusercontent.com/83022348/179366367-351d1898-b099-47e1-b2f2-7fba6bcc67d0.png)
+<br>
+# About network and drive results
+The meaning of each number in the disk and network results is output in the same order as the following psutil document.<br>
+Disk: https://psutil.readthedocs.io/en/latest/#psutil.disk_io_counters<br>
+Network: https://psutil.readthedocs.io/en/latest/#psutil.net_io_counters
