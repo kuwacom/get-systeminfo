@@ -21,7 +21,7 @@ def get(averageTime):
     }
 
     def setParCpuPercent(interval):
-        systemInfo['cpuPercentage'] = psutil.cpu_percent(interval=interval,percpu=True)
+        systemInfo['perCpuPercentage'] = psutil.cpu_percent(interval=interval,percpu=True)
 
     def setCpuPercent(interval):
         systemInfo['cpuPercentage'] = psutil.cpu_percent(interval=interval,percpu=False)
