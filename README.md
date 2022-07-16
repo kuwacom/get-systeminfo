@@ -8,7 +8,7 @@ First run this command to install the required libraries.<br>
 Call it from another program or load it as a module in python.<br>
 ## Example
 Call example from nodejs.<br>
-```
+```js
 const {PythonShell} = require('python-shell');
 PythonShell.run('systeminfo.py', null, function (err, result) {
     if (err) throw err
