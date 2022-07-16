@@ -16,5 +16,5 @@ PythonShell.run('systeminfo.py', null, function (err, result) {
     console.log(resultJson)
 })
 ```
-Result
+Result<br>
 ![image](https://user-images.githubusercontent.com/83022348/179366367-351d1898-b099-47e1-b2f2-7fba6bcc67d0.png)
