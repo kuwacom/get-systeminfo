@@ -10,6 +10,7 @@ def get(averageTime):
         'cpuName': re.sub('\u0000','',str(cpuid.cpu_name())),
         'cpuCount': psutil.cpu_count(),
         'cpuFrequency': psutil.cpu_freq(percpu=True),
+        'perCpuPercentage': 'Null',
         'cpuPercentage': 'Null',
         'ramPercentage': psutil.virtual_memory().percent,
         'ramUsed': psutil.virtual_memory().used,
@@ -19,8 +20,11 @@ def get(averageTime):
         'networkIOPS': 'Null',
     }
 
-    def setCpuPercent(interval):
+    def setParCpuPercent(interval):
         systemInfo['cpuPercentage'] = psutil.cpu_percent(interval=interval,percpu=True)
+
+    def setCpuPercent(interval):
+        systemInfo['cpuPercentage'] = psutil.cpu_percent(interval=interval,percpu=False)
 
     def setDiskIOPS(interval):
         oldNetData = psutil.disk_io_counters(perdisk=False)
@@ -61,13 +65,15 @@ def get(averageTime):
                 disk.append(newNetData[diskName][countNum] - oldNetData[diskName][countNum])
             result[diskName] = disk
         systemInfo['perNetworkIOPS'] = result
-
+    
+    thread_0 = threading.Thread(target=setParCpuPercent,args=(averageTime-0.05,))
     thread_1 = threading.Thread(target=setCpuPercent,args=(averageTime-0.05,))
     thread_2 = threading.Thread(target=setDiskIOPS,args=(averageTime-0.05,))
     thread_3 = threading.Thread(target=setNetworkIOPS,args=(averageTime-0.05,))
     thread_4 = threading.Thread(target=setPerDiskIOPS,args=(averageTime-0.05,))
     thread_5 = threading.Thread(target=setPerNetworkIOPS,args=(averageTime-0.05,))
 
+    thread_0.start()
     thread_1.start()
     thread_2.start()
     thread_3.start()
@@ -76,5 +82,5 @@ def get(averageTime):
 
     time.sleep(averageTime)
     return systemInfo
-    
-print(json.dumps(get(0.5)))
+
+print(json.dumps(get(1.0)))
